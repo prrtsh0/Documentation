@@ -20,4 +20,4 @@ Key rules from that plan:
 ## Log index (newest last)
 | Date | Summary |
 | --- | --- |
-| *(add your first entry)* |  |
+| 2026-11-27 | *(example)* LeetCode 2×, paper Pass 1 (Attention), StatQuest, 2 applications |
