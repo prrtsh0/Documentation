@@ -40,6 +40,7 @@ Two simple options (both parse the consistent labels):
 
 ## Minimal starter (pandas + gensim + textblob)
 ```python
+import glob
 import re, pandas as pd
 import gensim.downloader as api
 from textblob import TextBlob
