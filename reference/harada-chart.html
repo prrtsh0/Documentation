@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harada Method — Open Window 64 · AI Engineer</title>
+<style>
+  :root{
+    --yellow:#ffe066; --yellow-d:#f0c419;
+    --bg:#f4f6f8; --ink:#1c2733; --muted:#5b6b7a;
+    --card:#ffffff; --line:#d9e0e6;
+    --p1:#e8f0fe; --p1b:#3b6fd8;
+    --p2:#e6f8e9; --p2b:#2f9e57;
+    --p3:#fdeee7; --p3b:#d96b2b;
+    --p4:#f2ebfd; --p4b:#7b51d1;
+    --p5:#fdf3e0; --p5b:#c98a1b;
+    --p6:#e7f6f7; --p6b:#199a9d;
+    --p7:#fbeaea; --p7b:#cf3d3d;
+    --p8:#eef0ea; --p8b:#6a7a3c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:28px 18px 80px; line-height:1.45;
+  }
+  .wrap{max-width:1180px; margin:0 auto;}
+  header{text-align:center; margin-bottom:26px;}
+  header h1{font-size:26px; font-weight:800; letter-spacing:.2px;}
+  header .sub{margin-top:6px; color:var(--muted); font-size:15px;}
+  .chip{display:inline-block; background:#fff; border:1px solid var(--line);
+        border-radius:999px; padding:4px 14px; font-size:13px; margin-top:10px;}
+
+  .section-title{margin:40px 0 16px; font-size:20px; font-weight:800;}
+
+  /* ---------- MASTER 3x3 ---------- */
+  .master{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  .cell{background:var(--card); border:1px solid var(--line); border-radius:14px;
+        padding:14px; min-height:150px; display:flex; flex-direction:column;}
+  .cell .k{font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+           color:var(--muted); margin-bottom:6px;}
+  .cell .t{font-size:16px; font-weight:800; line-height:1.3;}
+  .cell .n{font-size:12.5px; color:var(--muted); margin-top:8px;}
+  .cell.center{background:linear-gradient(135deg,#fff3b0,var(--yellow));
+               border-color:var(--yellow-d); grid-row:2; justify-content:center; align-items:center;
+               text-align:center;}
+  .cell.center .t{font-size:20px;}
+  .cell.center .k{color:#8a6d00;}
+
+  .p1{background:var(--p1); border-color:#c7d6f5;} .p1 .t{color:var(--p1b);}
+  .p2{background:var(--p2); border-color:#bde4c6;} .p2 .t{color:var(--p2b);}
+  .p3{background:var(--p3); border-color:#f6cbb2;} .p3 .t{color:var(--p3b);}
+  .p4{background:var(--p4); border-color:#dcccf7;} .p4 .t{color:var(--p4b);}
+  .p5{background:var(--p5); border-color:#f4dca4;} .p5 .t{color:var(--p5b);}
+  .p6{background:var(--p6); border-color:#b7e4e6;} .p6 .t{color:var(--p6b);}
+  .p7{background:var(--p7); border-color:#f2c1c1;} .p7 .t{color:var(--p7b);}
+  .p8{background:var(--p8); border-color:#cbd2ab;} .p8 .t{color:var(--p8b);}
+
+  /* ---------- EXPANDED PILLAR GRIDS ---------- */
+  .pillar{background:var(--card); border:1px solid var(--line); border-radius:18px;
+          padding:20px; margin-bottom:24px;}
+  .pillar > .head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:14px;}
+  .pillar > .head .tag{font-size:12px; font-weight:800; padding:3px 10px; border-radius:8px; color:#fff;}
+  .pillar > .head h3{font-size:19px; font-weight:800;}
+  .pillar > .head .why{font-size:13px; color:var(--muted);}
+
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+  .mini{background:#f9fbfc; border:1px solid var(--line); border-radius:10px;
+        padding:9px; font-size:12px; min-height:64px;}
+  .mini .idx{font-weight:800; margin-right:4px;}
+  .mini.c{display:flex; align-items:center; justify-content:center; text-align:center;
+          font-weight:800; color:#fff;}
+  .mini.c.p1{background:var(--p1b);} .mini.c.p2{background:var(--p2b);}
+  .mini.c.p3{background:var(--p3b);} .mini.c.p4{background:var(--p4b);}
+  .mini.c.p5{background:var(--p5b);} .mini.c.p6{background:var(--p6b);}
+  .mini.c.p7{background:var(--p7b);} .mini.c.p8{background:var(--p8b);}
+
+  footer{margin-top:34px; text-align:center; color:var(--muted); font-size:13px;}
+  @media(max-width:640px){
+    .master,.grid3{grid-template-columns:repeat(2,1fr);}
+    .cell.center{grid-column:1/-1;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Harada Method — Open Window 64</h1>
+    <div class="sub">Become a job-ready AI Engineer by New Year's Eve 2026</div>
+    <div class="chip">1 central goal → 8 sub-goals → 64 actions</div>
+  </header>
+
+  <!-- ==================== MASTER CHART ==================== -->
+  <div class="section-title">1 · Master Chart (3×3)</div>
+  <div class="master">
+    <div class="cell p1"><div class="k">Pillar 1</div><div class="t">LLM Fundamentals &amp; Inference</div><div class="n">attention repro · sampling · serving · benchmarking</div></div>
+    <div class="cell p2"><div class="k">Pillar 2</div><div class="t">Embeddings &amp; Vector Databases</div><div class="n">pgvector/Qdrant · chunking · reranking</div></div>
+    <div class="cell p3"><div class="k">Pillar 3</div><div class="t">RAG System Implementation</div><div class="n">the spine project — ingest → retrieve → answer</div></div>
+    <div class="cell p4"><div class="k">Pillar 4</div><div class="t">Prompt Engineering</div><div class="n">system/few-shot prompts · edge cases · evals</div></div>
+    <div class="cell center"><div class="k">Yellow center</div><div class="t">Become a job-ready AI Engineer</div><div class="n">by Dec 31, 2026</div></div>
+    <div class="cell p5"><div class="k">Pillar 5</div><div class="t">Agents &amp; Tool Use</div><div class="n">tools · sandbox · agentic workflow</div></div>
+    <div class="cell p6"><div class="k">Pillar 6</div><div class="t">Multimodal AI</div><div class="n">vision · whisper · CLIP · HF models</div></div>
+    <div class="cell p7"><div class="k">Pillar 7</div><div class="t">Evaluation &amp; Reliability</div><div class="n">40+ evals · tracing · system design</div></div>
+    <div class="cell p8"><div class="k">Pillar 8</div><div class="t">Deployment &amp; Job-Readiness</div><div class="n">API · auth · demo · case study · 20 apps</div></div>
+  </div>
+
+  <!-- ==================== EXPANDED PILLARS ==================== -->
+  <div class="section-title">2 · Expand each pillar → 8 actions (the 64)</div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p1b)">1</span><h3>LLM Fundamentals &amp; Inference</h3><span class="why">understand how the models you serve actually work</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Reproduce Self-Attention (1706.03762) in PyTorch from scratch.</div>
+      <div class="mini"><span class="idx">2.</span>Build a masked attention + MLP GPT-style block on a toy corpus.</div>
+      <div class="mini"><span class="idx">3.</span>Run 3 hosted models (OpenAI, Anthropic, Cohere); compare token rate + cost/1k.</div>
+      <div class="mini"><span class="idx">4.</span>Serve locally via llama.cpp / Ollama: weights + inference script.</div>
+      <div class="mini c p1">LLM<br>Fundamentals</div>
+      <div class="mini"><span class="idx">5.</span>Benchmark the same model: raw HF pipeline → vLLM → served API.</div>
+      <div class="mini"><span class="idx">6.</span>Write a 1-page note on temperature / top-p / sampling with examples.</div>
+      <div class="mini"><span class="idx">7.</span>Quantize a model (GGUF/int8); measure quality vs speed.</div>
+      <div class="mini"><span class="idx">8.</span>Read + summarize the Week-3 attention paper into `reference/`.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p2b)">2</span><h3>Embeddings &amp; Vector Databases</h3><span class="why">the retrieval half of every RAG system</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Set up pgvector (or Qdrant) locally with a working insert/query loop.</div>
+      <div class="mini"><span class="idx">2.</span>Embed 200+ messy documents with a BGE / text-embedding model.</div>
+      <div class="mini"><span class="idx">3.</span>Implement chunking (fixed / recursive / sentence); compare retrieval quality.</div>
+      <div class="mini"><span class="idx">4.</span>Implement top-k retrieval and inspect what it returns.</div>
+      <div class="mini c p2">Embeddings<br>&amp; Vector DBs</div>
+      <div class="mini"><span class="idx">5.</span>Add reranking (cross-encoder); measure recall improvement.</div>
+      <div class="mini"><span class="idx">6.</span>Store metadata + filters (source, date, tag).</div>
+      <div class="mini"><span class="idx">7.</span>Build a similarity-search demo (question → top 5 chunks).</div>
+      <div class="mini"><span class="idx">8.</span>Write comparison note: pgvector vs Qdrant vs FAISS.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p3b)">3</span><h3>RAG System Implementation</h3><span class="why">the spine project — this IS your portfolio piece</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Pick a real, messy dataset (PDFs, CSVs, support tickets).</div>
+      <div class="mini"><span class="idx">2.</span>Build ingest: parse → clean → chunk → embed → store.</div>
+      <div class="mini"><span class="idx">3.</span>Wire retrieval + prompt + LLM into one `answer(question)`.</div>
+      <div class="mini"><span class="idx">4.</span>Add citations to every answer (which chunk it came from).</div>
+      <div class="mini c p3">RAG<br>System</div>
+      <div class="mini"><span class="idx">5.</span>Handle "I don't know" — refuse gracefully with no good chunk.</div>
+      <div class="mini"><span class="idx">6.</span>Add conversation/history layer so follow-ups work.</div>
+      <div class="mini"><span class="idx">7.</span>Log every query (question, chunks, answer, latency).</div>
+      <div class="mini"><span class="idx">8.</span>README with architecture diagram + numbers (latency, cost, recall).</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p4b)">4</span><h3>Prompt Engineering</h3><span class="why">the cheap lever separating good agents from confused ones</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Write a system prompt; iterate on 3 versions.</div>
+      <div class="mini"><span class="idx">2.</span>Build a few-shot set (5 examples); measure accuracy change.</div>
+      <div class="mini"><span class="idx">3.</span>Refine retrieval prompt: use ONLY provided context.</div>
+      <div class="mini"><span class="idx">4.</span>Add structured-output (JSON schema) for answer + citations.</div>
+      <div class="mini c p4">Prompt<br>Engineering</div>
+      <div class="mini"><span class="idx">5.</span>Handle edge cases: empty context, off-topic, ambiguous.</div>
+      <div class="mini"><span class="idx">6.</span>Test robustness: rephrase the same question 5 ways.</div>
+      <div class="mini"><span class="idx">7.</span>Use the eval harness to compare prompt versions (numbers).</div>
+      <div class="mini"><span class="idx">8.</span>Write a personal prompt cheat-sheet.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p5b)">5</span><h3>Agents &amp; Tool Use</h3><span class="why">modern AI engineering is agent + tool orchestration</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Define 3 tools (search, calculator, DB-lookup) with schemas.</div>
+      <div class="mini"><span class="idx">2.</span>Wire tools into the agent loop (LLM decides tool call).</div>
+      <div class="mini"><span class="idx">3.</span>Run tools in a sandbox (Docker with limits); validate outputs.</div>
+      <div class="mini"><span class="idx">4.</span>Add a tool-call parser that reliably extracts args.</div>
+      <div class="mini c p5">Agents<br>&amp; Tools</div>
+      <div class="mini"><span class="idx">5.</span>Handle tool errors (bad args, timeout) with retry/fallback.</div>
+      <div class="mini"><span class="idx">6.</span>Limit tool budget (max N calls) to prevent runaway loops.</div>
+      <div class="mini"><span class="idx">7.</span>Add an agentic workflow: query → retrieve → decide → tool → answer.</div>
+      <div class="mini"><span class="idx">8.</span>Log trajectory (every step) for later eval analysis.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p6b)">6</span><h3>Multimodal AI</h3><span class="why">vision/audio/embedding APIs broaden the roles you can target</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Call OpenAI Vision API on an image; extract text/objects.</div>
+      <div class="mini"><span class="idx">2.</span>Transcribe audio with Whisper API (or local).</div>
+      <div class="mini"><span class="idx">3.</span>Generate an image (DALL-E / image model); describe it back.</div>
+      <div class="mini"><span class="idx">4.</span>Load a HF multimodal model (e.g. CLIP); compute image-text similarity.</div>
+      <div class="mini c p6">Multimodal<br>AI</div>
+      <div class="mini"><span class="idx">5.</span>Use LangChain/LlamaIndex multimodal loaders on a PDF with images.</div>
+      <div class="mini"><span class="idx">6.</span>Add a small multimodal feature (e.g. OCR a scanned PDF).</div>
+      <div class="mini"><span class="idx">7.</span>Compare text-only vs vision-augmented retrieval on scanned docs.</div>
+      <div class="mini"><span class="idx">8.</span>Write a note on when multimodal matters vs when it's overkill.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p7b)">7</span><h3>Evaluation &amp; Reliability</h3><span class="why">evals separate a serious candidate from a chatbot builder</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Build the eval harness with 40+ test cases (pass/fail).</div>
+      <div class="mini"><span class="idx">2.</span>Add trajectory logging (every tool + model call per run).</div>
+      <div class="mini"><span class="idx">3.</span>Record cost and latency per run for every eval.</div>
+      <div class="mini"><span class="idx">4.</span>Add tracing (OpenTelemetry / Langfuse) + failure dashboard.</div>
+      <div class="mini c p7">Evals<br>&amp; Reliability</div>
+      <div class="mini"><span class="idx">5.</span>Before/after comparisons for at least 3 changes (prompt, retrieval, model).</div>
+      <div class="mini"><span class="idx">6.</span>Write the eval report (accuracy, failure modes, regressions).</div>
+      <div class="mini"><span class="idx">7.</span>Write the benchmark report (hosted vs self-hosted model).</div>
+      <div class="mini"><span class="idx">8.</span>Do 3 timed mock system-design interviews (RAG, multi-agent, chat app).</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="head"><span class="tag" style="background:var(--p8b)">8</span><h3>Deployment &amp; Job-Readiness</h3><span class="why">serving, security, GitHub, demo, applications</span></div>
+    <div class="grid3">
+      <div class="mini"><span class="idx">1.</span>Run the agent behind an API (FastAPI) with clean endpoints.</div>
+      <div class="mini"><span class="idx">2.</span>Add auth + RBAC + audit logs + PII redaction.</div>
+      <div class="mini"><span class="idx">3.</span>Integrate with a client system (auth'd API / CSV export / webhook).</div>
+      <div class="mini"><span class="idx">4.</span>Deploy to a server/container a recruiter can hit live.</div>
+      <div class="mini c p8">Deploy<br>&amp; Job-Ready</div>
+      <div class="mini"><span class="idx">5.</span>Record the 5-minute demo aimed at a non-technical buyer.</div>
+      <div class="mini"><span class="idx">6.</span>Write the case study: problem → build → numbers → what failed.</div>
+      <div class="mini"><span class="idx">7.</span>Rewrite resume + GitHub + LinkedIn for AI Engineer roles.</div>
+      <div class="mini"><span class="idx">8.</span>Send 20+ applications (log them in `daily-logs/`).</div>
+    </div>
+  </div>
+
+  <footer>Harada Method · Open Window 64 · AI Engineer Plan · Nov 27 → Dec 31, 2026</footer>
+</div>
+</body>
+</html>

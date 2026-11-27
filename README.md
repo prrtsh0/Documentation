@@ -57,6 +57,45 @@ All context/source documents (read-only originals + templates/guides):
 
 ---
 
+## 🎯 Harada Method — Open Window 64 (AI Engineer)
+
+Goal: **become a job-ready AI Engineer by Dec 31, 2026**. Method: 1 central goal →
+8 sub-goals → 64 actions. Full plan: [`reference/harada-method-ai-engineer.md`](reference/harada-method-ai-engineer.md)
+· Interactive chart: [`reference/harada-chart.html`](reference/harada-chart.html)
+· Rendered PNG: [`reference/harada-chart.png`](reference/harada-chart.png).
+
+### Master chart (3×3)
+
+| Pillar 1 · LLM Fundamentals & Inference | Pillar 2 · Embeddings & Vector Databases | Pillar 3 · RAG System Implementation |
+| --- | --- | --- |
+| Pillar 4 · Prompt Engineering | **🟡 CENTER — BECOME A JOB-READY AI ENGINEER (by Dec 31, 2026)** | Pillar 5 · Agents & Tool Use |
+| Pillar 6 · Multimodal AI | Pillar 7 · Evaluation & Reliability | Pillar 8 · Deployment & Job-Readiness |
+
+### The 64 actions (8 pillars × 8)
+
+| Pillar | 8 actions |
+| --- | --- |
+| **1 · LLM Fundamentals & Inference** | Reproduce Self-Attention from scratch · GPT-style block · run 3 hosted models · serve locally (llama.cpp/Ollama) · benchmark HF vs vLLM vs API · sampling note · quantize (GGUF/int8) · read Week-3 attention paper |
+| **2 · Embeddings & Vector DBs** | pgvector/Qdrant up · embed 200+ docs · compare chunking · top-k retrieval · reranking · metadata filters · similarity-search demo · pgvector vs Qdrant vs FAISS note |
+| **3 · RAG System** | pick messy dataset · ingest pipeline · answer(question) · citations · graceful 'I don't know' · history layer · log every query · README with numbers |
+| **4 · Prompt Engineering** | system prompt ×3 · few-shot · retrieval prompt · JSON structured output · edge cases · robustness test · eval-compare · cheat-sheet |
+| **5 · Agents & Tools** | 3 tool schemas · agent loop · sandbox (Docker) · tool-call parser · error handling · tool budget · agentic workflow · trajectory logging |
+| **6 · Multimodal AI** | Vision API · Whisper · image gen · CLIP · LangChain/LlamaIndex loaders · OCR scanned PDF · vision-augmented retrieval compare · when-it-matters note |
+| **7 · Evaluation & Reliability** | 40+ eval harness · trajectory logging · cost/latency per run · tracing/dashboard · 3 before/after changes · eval report · benchmark report · 3 mock system-design interviews |
+| **8 · Deployment & Job-Ready** | FastAPI service · auth/RBAC/PII · client integration · deploy live · 5-min demo · case study · resume/GitHub/LinkedIn · 20+ applications |
+
+### 5-week timeline → Dec 31
+
+| Week | Dates | Focus | Exit test |
+| --- | --- | --- | --- |
+| 1 | Nov 30 – Dec 6 | Foundations, dataset, model baseline | embed 200 docs + top-5 retrieval works |
+| 2 | Dec 7 – 13 | Build the RAG core | answer() works end-to-end with citations |
+| 3 | Dec 14 – 20 | Evals, agents, multimodal | prove a measurable improvement after a change |
+| 4 | Dec 21 – 27 | Deployment, benchmark, demo | service live; self-hosted benchmarked vs API |
+| 5 | Dec 28 – 31 | Polish, demo, applications | all "done" checklist items checked |
+
+---
+
 ## Conventions
 - Daily logs: `daily-logs/YYYY-MM-DD.md`, kept short and honest.
 - Learning sites: update the horizontal Site Progress table above.
