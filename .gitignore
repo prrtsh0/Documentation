@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Notebooks / data
+.ipynb_checkpoints/
+*.ipynb
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.bin
+*.npy
+*.npz
+*.data
+*.h5
+
+# MLexperiment artifacts
+results/models/
+wandb/
+runs/
+lightning_logs/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local only
+.local/
+*.local
