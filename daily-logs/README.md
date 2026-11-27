@@ -24,7 +24,7 @@ Key rules from that plan:
 ## Log index (newest last)
 | Date | Day | Mood | Total time | Activities | Status |
 | --- | --- | --- | --- | --- | --- |
-| 27 Nov 2026 | Fri | 7 — focused | 4h30m | leetcode, paper, statquest, job | *(example)* |
+| 27 Nov 2026 | Fri | — | — | python, leetcode, deep-ml, paper, statquest | draft — fill details |
 
 ## Analysis
 See [`ANALYSIS.md`](ANALYSIS.md) for how to turn these logs into vectors/sentiment.
